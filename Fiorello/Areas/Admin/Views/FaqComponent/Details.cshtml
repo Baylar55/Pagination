@@ -1,0 +1,31 @@
+﻿@using Fiorello.Areas.Admin.ViewModels.FaqComponent;
+@model FaqComponentDetailsViewModel
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form method="post" asp-action="details" asp-controller="faqcomponent" asp-area="admin">
+                            <div class="form-group">
+                                <label for="Title" class="font-weight-bold">Title</label>
+                                <span class="form-control bg-info" for="Title" >@Model.Title</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="Description" class="font-weight-bold">Description</label>
+                                <span class="form-control bg-info" for="Description" >@Model.Description</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="Order" class="font-weight-bold">Order</label>
+                                <span class="form-control bg-info" for="Order">@Model.Order</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-2" asp-action="index" asp-controller="faqcomponent" asp-area="admin">Go to back</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

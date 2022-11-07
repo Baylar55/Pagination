@@ -1,0 +1,101 @@
+﻿@using Fiorello.Areas.Admin.ViewModels.Product;
+@using Fiorello.Models
+@model ProductCreateViewModel
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Create Product
+                        </p>
+                        <form method="post" enctype="multipart/form-data" asp-action="create" asp-controller="product" asp-area="admin">
+                            <div class="form-group">
+                                <label asp-for="Name">Name</label>
+                                <input class="form-control" asp-for="Name">
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Description">Description</label>
+                                <textarea class="form-control" asp-for="Description"></textarea>
+                                <span class="text-danger" asp-validation-for="Description"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Cost">Cost</label>
+                                <input class="form-control" asp-for="Cost" value="">
+                                <span class="text-danger" asp-validation-for="Cost"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Quantity">Quantity</label>
+                                <input class="form-control" asp-for="Quantity" value="" min="0">
+                                <span class="text-danger" asp-validation-for="Quantity"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Weight">Weight</label>
+                                <input class="form-control" asp-for="Weight">
+                                <span class="text-danger" asp-validation-for="Weight"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Dimension">Dimension</label>
+                                <input class="form-control" asp-for="Dimension">
+                                <span class="text-danger" asp-validation-for="Dimension"></span>
+                            </div>
+
+                            <div class="form-group">
+                            <label asp-for="StatusType">Status</label>
+                            <select asp-for="StatusType" asp-items="Html.GetEnumSelectList<Product.Status>()">
+                            </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Photo">Photo</label>
+                                <input class="form-control" asp-for="Photo">
+                                <span class="text-danger" asp-validation-for="Photo"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CategoryId">Category</label>
+                                <select class="form-control" asp-for="CategoryId" asp-items="Model.Categories"></select>
+                                <span class="text-danger" asp-validation-for="CategoryId"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label asp-for="ProductPhotos">Photos</label>
+                                <input class="form-control" asp-for="ProductPhotos">
+                                @{
+                                    if (Html.ViewData.ModelState["ProductPhotos"] != null)
+                                    {
+                                        foreach (var error in Html.ViewData.ModelState["ProductPhotos"].Errors)
+                                        {
+                                            <li>@error.ErrorMessage</li>
+                                        }
+                                    }
+                                }
+                            </div>
+
+                            <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Description'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>

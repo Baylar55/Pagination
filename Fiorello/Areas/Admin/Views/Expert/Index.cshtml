@@ -1,0 +1,59 @@
+﻿@using Fiorello.Areas.Admin.ViewModels.Expert
+@model ExpertIndexViewModel
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">expert table</h4>
+                        <a class="btn btn-primary" asp-action="create" asp-controller="expert" asp-area="admin">Create Expert</a>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th colspan="3" style="text-align:center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var expert in Model.Experts)
+                                    {
+                                        <tr>
+                                            <td>@expert.Id</td>
+                                            <td><img style="width:60px; height:60px;" src="~/assets/img/@expert.PhotoName" /></td>
+                                            <td>@expert.Name</td>
+                                            <td>@expert.Position</td>
+                                            <td width="20px">
+                                                <a asp-action="update" asp-controller="expert" asp-area="admin" asp-route-id="@expert.Id" class="btn btn-primary">Update</a>
+                                            </td>
+                                            <td width="20px">
+                                                <a asp-action="delete" asp-controller="expert" asp-area="admin" asp-route-id="@expert.Id" class="btn btn-danger">Delete</a>
+                                            </td>
+                                            <td width="20px">
+                                                <a asp-action="details" asp-controller="expert" asp-area="admin" asp-route-id="@expert.Id" class="btn btn-info">Details</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Only the best <a href="https://www.bootstrapdash.com/" target="_blank"> Bootstrap dashboard  </a> templates</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>

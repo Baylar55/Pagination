@@ -1,0 +1,55 @@
+﻿@using Fiorello.Areas.Admin.ViewModels.Product;
+@using Fiorello.Models
+@model ProductDetailsViewModel
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Product Details
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Cost</th>
+                                        <th>Quantitiy</th>
+                                        <th>Weight</th>
+                                        <th>Dimension</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th style="width:100px">Main Photo</th>
+                                        <th colspan="4" style="text-align:center">Sub Photos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.Id</td>
+                                        <td>@Model.Name</td>
+                                        <td>@Html.Raw(Model.Description)</td>
+                                        <td>@Model.Cost</td>
+                                        <td>@Model.Quantity</td>
+                                        <td>@Model.Weight</td>
+                                        <td>@Model.Dimension</td>
+                                        <td><select class="form-select" asp-for="CategoryId" asp-items="@Model.Categories" disabled></select> </td>
+                                        <td>@Model.StatusType</td>
+                                        <td><img src="~/assets/img/@Model.PhotoName" /></td>
+                                        @foreach (var item in Model.Photos)
+                                        {
+                                            <td><img src="~/assets/img/@item.Name"/></td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a class="btn btn-primary" asp-action="index" asp-controller="product">Go to back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
