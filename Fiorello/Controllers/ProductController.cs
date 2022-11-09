@@ -59,15 +59,11 @@ namespace Fiorello.Controllers
                                        .Skip(4 * skipRow)
                                        .Take(4)
                                        .ToListAsync();
-            if (((skipRow + 1) * 3 + 1) > _appDbContext.Products.Count())
+            if (((skipRow + 1) * 4 + 1) > _appDbContext.Products.Count())
             {
                 isLast = true;
             }
             
-            if (products.Count < 4)
-            {
-                isLast = true;
-            }
             var model = new ProductLoadMoreViewModel
             {
                 Products = products,

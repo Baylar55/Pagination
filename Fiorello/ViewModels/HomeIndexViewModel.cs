@@ -4,6 +4,7 @@ namespace Fiorello.ViewModels
 {
     public class HomeIndexViewModel
     {
-        public HomeMainSlider HomeMainSlider { get; set; }
+        public List<Models.Product> Products { get; set; }
+        public HomeMainSlider? HomeMainSlider { get; set; }
     }
 }

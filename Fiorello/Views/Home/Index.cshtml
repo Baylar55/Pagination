@@ -29,13 +29,13 @@
 															@foreach (var sliderPhoto in Model.HomeMainSlider.HomeMainSliderPhotos)
 															{
 																<rs-slide style="position: absolute;"
-																	  data-key="rs-5" data-title="Slide"
-																	  data-thumb="~/assets/img/@sliderPhoto.Name"
-																	  data-anim="adpr:false;" data-p1="01">
-																<img src="~/assets/img/@sliderPhoto.Name"
+																	  data-key="@sliderPhoto.Order" data-title="Slide"
+																	  data-thumb="assets/img/@sliderPhoto.Name"
+																	  data-anim="adpr:false;" data-p1="@sliderPhoto.Order">
+																<img src="assets/img/@sliderPhoto.Name"
 																	 alt="" title="Main Home"
 																	 class="rev-slidebg rs-img rs-lazyload"
-																	 data-lazyload="~/assets/img/@sliderPhoto.Name"
+																	 data-lazyload="assets/img/@sliderPhoto.Name"
 																	 data-bg="p:center right;"
 																	 data-panzoom="d:10000;ss:110;se:100;"
 																	 data-no-retina>
@@ -43,36 +43,7 @@
 															}
 															}
 
-
-															@*<rs-slide style="position: absolute;"
-																	  data-key="rs-11" data-title="Slide"
-																	  data-thumb="~/assets/vendor/wp-content/uploads/2018/05/h3-slider-background-2.jpg"
-																	  data-anim="adpr:false;" data-p1="02">
-																<img src="~/assets/vendor/wp-content/plugins/revslider/public/assets/assets/dummy.png"
-																	 alt="" title="Main Home"
-																	 class="rev-slidebg tp-rs-img rs-lazyload"
-																	 data-lazyload="assets/vendor/wp-content/uploads/2018/05/h3-slider-background-2.jpg"
-																	 data-bg="p:center bottom;"
-																	 data-panzoom="d:10000;ss:100;se:115;"
-																	 data-no-retina>
-															</rs-slide>
-															<rs-slide style="position: absolute;"
-																	  data-key="rs-13" data-title="Slide"
-																	  data-thumb="~/assets/vendor//wp-content/uploads/2018/05/h3-slider-background-3.jpg"
-																	  data-anim="adpr:false;" data-p1="03">
-																<img src="~/assets/vendor/wp-content/plugins/revslider/public/assets/assets/dummy.png"
-																	 alt="" title="Main Home"
-																	 class="rev-slidebg tp-rs-img rs-lazyload"
-																	 data-lazyload="assets/vendor/wp-content/uploads/2018/05/h3-slider-background-3.jpg"
-																	 data-panzoom="d:10000;ss:100;se:110;"
-																	 data-no-retina>
-															</rs-slide>*@
-
-
 														</rs-slides>
-
-
-
 														<rs-static-layers class="rs-stl-visible">
 															<rs-layer id="slider-3-slide-3-layer-17"
 																	  class="rs-layer-static" data-type="text"
@@ -152,329 +123,66 @@
 														<div class="mkdf-prl-loading">
 															<span class="mkdf-prl-loading-msg">Loading...</span>
 														</div>
-														<div class="mkdf-pl-outer mkdf-outer-space">
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/04/shop-14-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="l" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/majesty-palm/index.html"
-																	   title="Majesty Palm"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/majesty-palm/index.html">
-																			Majesty
-																			Palm
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="indexcd19.html?add-to-cart=365"
-																		   data-quantity="1"
-																		   data-product_id="365"
-																		   data-product_sku="7555"
-																		   class="button add_to_cart_button ajax_add_to_cart mkdf-button">
-																			Add
-																			to cart
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">&#036;</span>259
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/04/shop-13-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="k" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/foxglove-flower/index.html"
-																	   title="Foxglove Flower"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/foxglove-flower/index.html">
-																			Foxglove
-																			Flower
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="indexb9d5.html?add-to-cart=364"
-																		   data-quantity="1"
-																		   data-product_id="364"
-																		   data-product_sku="74141"
-																		   class="button add_to_cart_button ajax_add_to_cart mkdf-button">
-																			Add
-																			to cart
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">&#036;</span>259
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<span class="mkdf-pli-out-of-stock">Sold</span>
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/05/shop-10-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="d" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/sweet-alyssum/index.html"
-																	   title="Sweet Alyssum"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/sweet-alyssum/index.html">
-																			Sweet
-																			Alyssum
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="product/sweet-alyssum/index.html"
-																		   data-quantity="1"
-																		   data-product_id="363"
-																		   data-product_sku="5555"
-																		   class="button ajax_add_to_cart mkdf-button">
-																			Read
-																			more
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">&#036;</span>259
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/04/shop-11-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="l" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/spring-snowflake/index.html"
-																	   title="Spring Snowflake"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/spring-snowflake/index.html">
-																			Spring
-																			Snowflake
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="index7f13.html?add-to-cart=358"
-																		   data-quantity="1"
-																		   data-product_id="358"
-																		   data-product_sku="8774"
-																		   class="button add_to_cart_button ajax_add_to_cart mkdf-button">
-																			Add
-																			to cart
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">&#036;</span>170
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<span class="mkdf-pli-onsale">Sale</span>
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/04/shop-12-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="k" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/scarlet-sage/index.html"
-																	   title="Scarlet Sage"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/scarlet-sage/index.html">
-																			Scarlet
-																			Sage
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="index4d00.html?add-to-cart=331"
-																		   data-quantity="1"
-																		   data-product_id="331"
-																		   data-product_sku="89547"
-																		   class="button add_to_cart_button ajax_add_to_cart mkdf-button">
-																			Add
-																			to cart
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<del aria-hidden="true">
-																			<span class="woocommerce-Price-amount amount">
-																				<span class="woocommerce-Price-currencySymbol">&#036;</span>259
-																			</span>
-																		</del>
-																		<ins>
-																			<span class="woocommerce-Price-amount amount">
-																				<span class="woocommerce-Price-currencySymbol">&#036;</span>159
-																			</span>
-																		</ins>
-																	</div>
-																</div>
-															</div>
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/04/shop-9-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="s" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/rock-soapwort/index.html"
-																	   title="Rock Soapwort"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/rock-soapwort/index.html">
-																			Rock
-																			Soapwort
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="product/rock-soapwort/index.html"
-																		   data-quantity="1"
-																		   data-product_id="319"
-																		   data-product_sku="89844"
-																		   class="button add_to_cart_button ajax_add_to_cart mkdf-button">
-																			View
-																			products
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">&#036;</span>259
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/04/shop-8-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="l" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/summer-savory/index.html"
-																	   title="Summer Savory"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/summer-savory/index.html">
-																			Summer
-																			Savory
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="indexd7ec.html?add-to-cart=310"
-																		   data-quantity="1"
-																		   data-product_id="310"
-																		   data-product_sku="89561"
-																		   class="button add_to_cart_button ajax_add_to_cart mkdf-button">
-																			Add
-																			to cart
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">&#036;</span>259
-																		</span>
-																	</div>
-																</div>
-															</div>
-															<div class="mkdf-pli mkdf-item-space ">
-																<div class="mkdf-pli-inner">
-																	<div class="mkdf-pli-image">
-																		<img width="620" height="800"
-																			 src="~/assets/vendor/wp-content/uploads/2018/04/shop-7-img.jpg"
-																			 class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
-																			 alt="g" loading="eager" />
-																	</div>
-																	<a class="mkdf-pli-link" itemprop="url"
-																	   href="product/wild-roses/index.html"
-																	   title="Wild Roses"></a>
-																</div>
-																<div class="mkdf-pli-text-wrapper">
-																	<h6 itemprop="name"
-																		class="entry-title mkdf-pli-title">
-																		<a itemprop="url"
-																		   href="product/wild-roses/index.html">
-																			Wild
-																			Roses
-																		</a>
-																	</h6>
-																	<div class="mkdf-pli-add-to-cart mkdf-default-skin">
-																		<a rel="nofollow"
-																		   href="https://www.amazon.com/ProFlowers-Count-Ginger-Flowers-Mothers/dp/B01IDQKGYC/ref=sr_1_1_sspa?ie=UTF8&amp;qid=1524830057&amp;sr=8-1-spons&amp;keywords=roses&amp;psc=1"
-																		   data-quantity="1"
-																		   data-product_id="309"
-																		   data-product_sku="89564"
-																		   class="button product_type_external mkdf-button">
-																			Buy
-																			on Amazon
-																		</a>
-																	</div>
-																	<div class="mkdf-pli-price">
-																		<span class="woocommerce-Price-amount amount">
-																			<span class="woocommerce-Price-currencySymbol">&#036;</span>259
-																		</span>
-																	</div>
-																</div>
-															</div>
-														</div>
+														 <div class="mkdf-pl-outer mkdf-outer-space" id="productLoad">
+                                                    @foreach (var product in Model.Products)
+                                                    {
+                                                        <div class="mkdf-pli mkdf-item-space ">
+                                                            <div class="mkdf-pli-inner">
+                                                                <div class="mkdf-pli-image">
+                                                                    @{
+                                                                        if (@product.StatusType.ToString() == "New")
+                                                                        {
+                                                                            <span class="mkdf-pli-new-product">New</span>
+                                                                        }
+                                                                        else if (@product.StatusType.ToString() == "Sale")
+                                                                        {
+                                                                            <span class="mkdf-pli-onsale">Sale</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="mkdf-pli-out-of-stock">Sold</span>
+                                                                        }
+                                                                    }
+                                                                    <img width="620" height="800"
+                                                                     src="~/assets/img/@product.PhotoName"
+                                                                     class="attachment-woocommerce_single size-woocommerce_single wp-post-image"
+                                                                     alt="c" loading="eager"
+                                                                     srcset="~/assets/img/@product.PhotoName 620w,~/assets/img/@product.PhotoName 233w"
+                                                                     sizes="(max-width: 620px) 100vw, 620px" />
+                                                                </div>
+                                                                <a class="mkdf-pli-link" itemprop="url"
+                                                               asp-action="details" asp-controller="product" asp-route-id="@product.Id"
+                                                               title="@product.Name"></a>
+                                                            </div>
+                                                            <div class="mkdf-pli-text-wrapper">
+                                                                <h6 itemprop="name"
+                                                                class="entry-title mkdf-pli-title">
+                                                                    <a asp-action="details" asp-controller="product" asp-route-id="@product.Id">
+                                                                        @product.Name
+                                                                    </a>
+                                                                </h6>
+                                                                <div class="mkdf-pli-add-to-cart mkdf-default-skin">
+                                                                    <a rel="nofollow"
+                                                                   href="indexa528.html?add-to-cart=251"
+                                                                   data-quantity="1" data-product_id="251"
+                                                                   data-product_sku="989873"
+                                                                   class="button add_to_cart_button ajax_add_to_cart mkdf-button">
+                                                                        Add
+                                                                        to cart
+                                                                    </a>
+                                                                </div>
+                                                                <div class="mkdf-pli-price">
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        <span class="woocommerce-Price-currencySymbol">&#036;</span>259
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+													</div>
+													<div class="d-flex justify-content-center">
+														<button id="loadMore" class="btn btn-primary"> Load more...</button>
 													</div>
 												</div>
 											</div>
@@ -627,128 +335,7 @@
 									</div>
 								</div>
 							</div>
-
-							@*<div class="mkdf-row-grid-section-wrapper ">
-								<div class="mkdf-row-grid-section">
-									<div class="vc_row wpb_row vc_row-fluid vc_custom_1526289670330">
-										<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6">
-											<div class="vc_column-inner">
-												<div class="wpb_wrapper">
-													<div class="mkdf-team-holder mkdf-team-info-below-image">
-														<div class="mkdf-team-inner">
-															<div class="mkdf-team-image">
-																<img width="222" height="222"
-																	 src="~/assets/vendor/wp-content/uploads/2018/04/h3-team-img-1.png"
-																	 class="attachment-full size-full"
-																	 alt="a"
-																	 srcset="https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-1.png 222w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-1-100x100.png 100w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-1-50x50.png 50w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-1-150x150.png 150w"
-																	 sizes="(max-width: 222px) 100vw, 222px"
-																	 loading="eager" />
-															</div>
-															<div class="mkdf-team-info">
-																<h6 class="mkdf-team-name">
-																	Crystal Brooks
-																</h6>
-																<span class="mkdf-team-position">Florist</span>
-															</div>
-														</div>
-													</div>
-													<div class="vc_empty_space" style="height: 68px">
-														<span class="vc_empty_space_inner"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6">
-											<div class="vc_column-inner">
-												<div class="wpb_wrapper">
-													<div class="mkdf-team-holder mkdf-team-info-below-image">
-														<div class="mkdf-team-inner">
-															<div class="mkdf-team-image">
-																<img width="222" height="222"
-																	 src="~/assets/vendor/wp-content/uploads/2018/05/h3-team-img-2.png"
-																	 class="attachment-full size-full"
-																	 alt="a"
-																	 srcset="https://fiorello.qodeinteractive.com/wp-content/uploads/2018/05/h3-team-img-2.png 222w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/05/h3-team-img-2-100x100.png 100w"
-																	 sizes="(max-width: 222px) 100vw, 222px"
-																	 loading="eager" />
-															</div>
-															<div class="mkdf-team-info">
-																<h6 class="mkdf-team-name">
-																	Shirley Harris
-																</h6>
-																<span class="mkdf-team-position">Manager</span>
-															</div>
-														</div>
-													</div>
-													<div class="vc_empty_space" style="height: 68px">
-														<span class="vc_empty_space_inner"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6">
-											<div class="vc_column-inner">
-												<div class="wpb_wrapper">
-													<div class="mkdf-team-holder mkdf-team-info-below-image">
-														<div class="mkdf-team-inner">
-															<div class="mkdf-team-image">
-																<img width="222" height="222"
-																	 src="~/assets/vendor/wp-content/uploads/2018/04/h3-team-img-3.png"
-																	 class="attachment-full size-full"
-																	 alt="a"
-																	 srcset="https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-3.png 222w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-3-100x100.png 100w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-3-50x50.png 50w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-3-150x150.png 150w"
-																	 sizes="(max-width: 222px) 100vw, 222px"
-																	 loading="eager" />
-															</div>
-															<div class="mkdf-team-info">
-																<h6 class="mkdf-team-name">
-																	Beverly Clark
-																</h6>
-																<span class="mkdf-team-position">Florist</span>
-															</div>
-														</div>
-													</div>
-													<div class="vc_empty_space" style="height: 68px">
-														<span class="vc_empty_space_inner"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="wpb_column vc_column_container vc_col-sm-6 vc_col-lg-3 vc_col-md-6">
-											<div class="vc_column-inner">
-												<div class="wpb_wrapper">
-													<div class="mkdf-team-holder mkdf-team-info-below-image">
-														<div class="mkdf-team-inner">
-															<div class="mkdf-team-image">
-																<img width="222" height="222"
-																	 src="~/assets/vendor/wp-content/uploads/2018/04/h3-team-img-4.png"
-																	 class="attachment-full size-full"
-																	 alt="a"
-																	 srcset="https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-4.png 222w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-4-100x100.png 100w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-4-50x50.png 50w, https://fiorello.qodeinteractive.com/wp-content/uploads/2018/04/h3-team-img-4-150x150.png 150w"
-																	 sizes="(max-width: 222px) 100vw, 222px"
-																	 loading="eager" />
-															</div>
-															<div class="mkdf-team-info">
-																<h6 class="mkdf-team-name">
-																	Amanda Watkins
-																</h6>
-																<span class="mkdf-team-position">Florist</span>
-															</div>
-														</div>
-													</div>
-													<div class="vc_empty_space" style="height: 68px">
-														<span class="vc_empty_space_inner"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>*@
-
 							@await Component.InvokeAsync("Expert")
-
 							<div class="mkdf-row-grid-section-wrapper mkdf-parallax-row-holder mkdf-content-aligment-center"
 								 data-parallax-bg-image=https://fiorello.qodeinteractive.com/wp-content/uploads/2018/05/h3-background-img.jpg
 								 data-parallax-bg-speed=1>
@@ -1115,4 +702,8 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div
+
+@section scripts{
+    <script src="~/assets/js/product-details.js"></script>
+}

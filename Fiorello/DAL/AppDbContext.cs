@@ -16,5 +16,6 @@ namespace Fiorello.DAL
         public DbSet<FaqComponent> FaqComponents { get; set; }
         public DbSet<HomeMainSlider> HomeMainSlider { get; set; }
         public DbSet<HomeMainSliderPhoto> HomeMainSliderPhotos { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
     }
 }

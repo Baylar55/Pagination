@@ -1,0 +1,22 @@
+﻿@using Fiorello.Areas.Admin.ViewModels.HomeMainSlider;
+@model HomeMainSliderUpdatePhotoViewModel;
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Update Photo Order</h4>
+            <div class="row">
+                <form method="post" asp-action="updatephoto" asp-controller="homemainslider" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Order"></label>
+                        <input asp-for="Order" class="form-control">
+                        <span asp-validation-for="Order"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-light" asp-action="index" asp-controller="homemainslider" asp-area="admin">Cancel</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

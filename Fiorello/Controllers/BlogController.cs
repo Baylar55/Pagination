@@ -1,17 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fiorello.ViewModels.Blog;
+using Fiorello.DAL;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fiorello.Controllers
 {
     public class BlogController : Controller
     {
-        public IActionResult Index()
+        private readonly AppDbContext _appDbContext;
+
+        public BlogController(AppDbContext appDbContext)
         {
-            return View();
+            _appDbContext = appDbContext;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var model = new BlogIndexViewModel
+            {
+                Blogs = await _appDbContext.Blogs.ToListAsync()
+            };
+            return View(model);
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var blog = await _appDbContext.Blogs.FindAsync(id);
+            if (blog == null) return NotFound();
+
+            var model = new BlogDetailsViewModel
+            {
+                Title = blog.Title,
+                CreateDate = blog.CreateDate,
+                Description = blog.Description,
+                PhotoName = blog.PhotoName,
+            };
+            return View(model);
         }
     }
 }
