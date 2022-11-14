@@ -20,7 +20,7 @@ namespace Fiorello.Areas.Admin.Controllers
         {
             var model = new CategoryIndexViewModel
             {
-                Categories=await _appDbContext.Categories.ToListAsync()
+                Categories = await _appDbContext.Categories.ToListAsync()
             };
             return View(model);
         }
@@ -34,7 +34,7 @@ namespace Fiorello.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryCreateViewModel model)
         {
-          if(!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(model);
             bool isExist = await _appDbContext.Categories.AnyAsync(c => c.Name.ToLower().Trim() == model.Name.ToLower().Trim());
             if (isExist)
             {
@@ -63,9 +63,9 @@ namespace Fiorello.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(CategoryUpdateViewModel model, int id )
+        public async Task<IActionResult> Update(CategoryUpdateViewModel model, int id)
         {
-            if(!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View();
             var dbCategory = await _appDbContext.Categories.FindAsync(id);
             if (dbCategory == null) return NotFound();
             bool isExist = await _appDbContext.Categories.AnyAsync(c => c.Name.ToLower().Trim() == model.Name.ToLower().Trim());
@@ -90,7 +90,7 @@ namespace Fiorello.Areas.Admin.Controllers
             return RedirectToAction("index");
         }
 
-        public async Task<IActionResult> Details( int id )
+        public async Task<IActionResult> Details(int id)
         {
             var dbCategory = await _appDbContext.Categories.FindAsync(id);
             if (dbCategory == null) return NotFound();

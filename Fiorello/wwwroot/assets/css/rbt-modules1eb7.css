@@ -403,3 +403,9 @@ span.rbt-text-name {
 .mkdf-container {
     margin-top: 50px !important;
 }
+form label{
+    display:block !important;
+}
+form input{
+    width:30% !important;
+}

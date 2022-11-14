@@ -18,6 +18,9 @@
 	<title>Fiorello &#8211; A Flower Shop and Florist WooCommerce Theme</title>
 	<meta name='robots' content='max-image-preview:large' />
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 	<script data-cfasync="false" data-pagespeed-no-defer>
 		var gtm4wp_datalayer_name = "dataLayer";
 		var dataLayer = dataLayer || [];
@@ -1287,12 +1290,17 @@
 											</li>
 										</ul>
 									</nav>
-									<a class="mkdf-search-opener mkdf-icon-has-hover mkdf-search-opener-icon-pack"
-										href="javascript:void(0)">
-										<span class="mkdf-search-opener-wrapper">
-											<span aria-hidden="true" class="mkdf-icon-font-elegant icon_search "></span>
-										</span>
-									</a>
+										
+                                            @if (User.Identity.IsAuthenticated)
+                                              { 
+												<span style="color:darkorange">@User.Identity.Name</span>
+												<a asp-action="logout" asp-controller="account" title="LogOut"><i style="margin-left:5px; color:darkorange" class="fa-solid fa-user-minus"></i></a>
+											  }
+											 else
+											 {   
+												<a asp-action="login" asp-controller="account" title="Login" ><i style="margin-right:5px; color:darkorange" class="fa-solid fa-user-plus"></i></a>
+											 }
+											
 									<div class="mkdf-shopping-cart-holder mkdf-cart-info-is-disabled">
 										<div class="mkdf-shopping-cart-inner">
 											<a itemprop="url" class="mkdf-header-cart" href="cart/index.html">
@@ -1315,6 +1323,10 @@
 											</div>
 										</div>
 									</div>
+
+									<div></div>
+
+
 								</div>
 							</div>
 						</div>
