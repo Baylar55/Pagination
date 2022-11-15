@@ -509,6 +509,10 @@
       "PackagePath": "staticwebassets\\assets\\img\\f33d5e8f-9f46-4e47-895f-75f4478e369e_Expert-img-2.png"
     },
     {
+      "Id": "C:\\Users\\user\\Desktop\\Fiorello\\Fiorello\\wwwroot\\assets\\js\\custom.js",
+      "PackagePath": "staticwebassets\\assets\\js\\custom.js"
+    },
+    {
       "Id": "C:\\Users\\user\\Desktop\\Fiorello\\Fiorello\\wwwroot\\assets\\js\\product-details.js",
       "PackagePath": "staticwebassets\\assets\\js\\product-details.js"
     },

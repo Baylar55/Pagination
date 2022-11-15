@@ -1,0 +1,33 @@
+﻿@using Fiorello.ViewModels.Basket
+@model List<BasketListItemViewModel>
+
+<div class="mkdf-grid">
+    @foreach (var basketProduct in Model)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Stock Quantity</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img style="width=100px;height:100px;" src="~/assets/img/@basketProduct.PhotoName" /></td>
+                    <td>@basketProduct.Title</td>
+                    <td>@basketProduct.StockQuantity</td>
+                    <td>@basketProduct.Quantity</td>
+                    <td>@basketProduct.Price</td>
+                    <td><button id="deleteButton" data-id="@basketProduct.Id" class="btn text-danger"><i class="fa-solid fa-trash-can"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+@section Scripts{
+    <script src="~/assets/js/custom.js"></script>
+}
