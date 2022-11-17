@@ -2,6 +2,7 @@
 using Fiorello.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Fiorello.Models;
 
 namespace Fiorello.Controllers
 {
@@ -13,13 +14,31 @@ namespace Fiorello.Controllers
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(BlogIndexViewModel model)
         {
-            var model = new BlogIndexViewModel
+
+            model = new BlogIndexViewModel
             {
-                Blogs = await _appDbContext.Blogs.ToListAsync()
+                Blogs = await PaginateBlogsAsync(model.Page, model.Take),
+                PageCount =await GetPageCountAsync(model.Take),
+                Page=model.Page
             };
             return View(model);
+        }
+
+        private async Task<List<Blog>> PaginateBlogsAsync(int page, int take)
+        {
+            return await _appDbContext.Blogs
+                                    .OrderByDescending(b => b.Id)
+                                    .Skip((page-1)*take)
+                                    .Take(take)
+                                    .ToListAsync();
+        }
+
+        private async Task<int> GetPageCountAsync(int take)
+        {
+            var blogCount = _appDbContext.Blogs.Count();
+            return (int)Math.Ceiling((decimal)blogCount / take);
         }
 
         public async Task<IActionResult> Details(int id)

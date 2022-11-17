@@ -5,7 +5,9 @@
         display: none;
     }
 }
-
+a.disabled{
+    pointer-events:none;
+}
 div.rbt-toolbar {
     font-family: 'Heebo', sans-serif !important;
     font-weight: 400;
