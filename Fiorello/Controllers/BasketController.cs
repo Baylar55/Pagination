@@ -1,107 +1,115 @@
 ﻿using Fiorello.DAL;
+using Fiorello.Models;
 using Fiorello.ViewModels.Basket;
+using Fiorello.ViewModels.BasketProduct;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Fiorello.Controllers
 {
+    [Authorize]
     public class BasketController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public BasketController(AppDbContext context)
+        public BasketController(AppDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<BasketAddViewModel> basket;
-            if (Request.Cookies["basket"] != null)
-            {
-                basket = JsonConvert.DeserializeObject<List<BasketAddViewModel>>(Request.Cookies["basket"]);
-            }
-            else
-            {
-                basket = new List<BasketAddViewModel>();
-            }
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
 
-            //var basketProducts = JsonConvert.DeserializeObject<List<BasketAddViewModel>>(Request.Cookies["basket"]);
+            var basket = await _context.Baskets
+                            .Include(b => b.BasketProducts)
+                            .ThenInclude(bp => bp.Product)
+                            .FirstOrDefaultAsync(b => b.UserId == user.Id);
 
-            List<BasketListItemViewModel> model=new List<BasketListItemViewModel>();
+            var model = new BasketIndexViewModel();
+            if (basket == null) return View(model);
 
-            foreach (var basketProduct in basket)
+            foreach (var dbBasketProduct in basket.BasketProducts)
             {
-                var dbProduct = await _context.Products.FindAsync(basketProduct.Id);
-                if (dbProduct != null)
+                var basketProduct = new BasketProductViewModel
                 {
-                    model.Add(new BasketListItemViewModel
-                    {
-                        Id=dbProduct.Id,
-                        Title=dbProduct.Name,
-                        Price=dbProduct.Cost,
-                        Quantity=basketProduct.Count,
-                        StockQuantity=dbProduct.Quantity,
-                        PhotoName=dbProduct.PhotoName,
-                    });
-                }
+                    Id = dbBasketProduct.Id,
+                    PhotoName = dbBasketProduct.Product.PhotoName,
+                    Price = dbBasketProduct.Product.Cost,
+                    Quantity = dbBasketProduct.Product.Quantity,
+                    StockQuantity = dbBasketProduct.Quantity,
+                    Title = dbBasketProduct.Product.Name
+                };
+                model.BasketProducts.Add(basketProduct);
             }
             return View(model);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Add(BasketAddViewModel model)
         {
-            List<BasketAddViewModel> basket;
-            if (Request.Cookies["basket"]!=null)
-            {
-                basket = JsonConvert.DeserializeObject<List<BasketAddViewModel>>(Request.Cookies["basket"]);
-            }
-            else
-            {
-                basket = new List<BasketAddViewModel>();
-            }
+            if (!ModelState.IsValid) return BadRequest(model);
 
-            var basketProduct=basket.Find(b=>b.Id==model.Id);
-            if (basketProduct!=null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            var product = await _context.Products.FindAsync(model.Id);
+            if (product == null) return NotFound();
+
+            var basket = await _context.Baskets.FirstOrDefaultAsync(b => b.UserId == user.Id);
+            if (basket == null)
             {
-                basketProduct.Count++;
+                basket = new Basket
+                {
+                    UserId = user.Id,
+                };
+                await _context.Baskets.AddAsync(basket);
+                await _context.SaveChangesAsync();
+            };
+            var basketProduct = await _context.BasketProducts.FirstOrDefaultAsync(bp => bp.ProductId == product.Id && bp.BasketId == basket.Id);
+            if (basketProduct != null)
+            {
+                basketProduct.Quantity++;
             }
             else
             {
-                model.Count++;
-                basket.Add(model);
+                basketProduct = new BasketProduct
+                {
+                    ProductId = product.Id,
+                    Quantity = 1,
+                    BasketId = basket.Id
+                };
+                await _context.BasketProducts.AddAsync(basketProduct);
             }
-             var serializedBasket= JsonConvert.SerializeObject(basket);
-            Response.Cookies.Append("basket", serializedBasket);
+            await _context.SaveChangesAsync();
             return Ok();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            List<BasketAddViewModel> basket;
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
 
-            if (Request.Cookies["basket"]==null) return NotFound();
+            var basketProduct = await _context.BasketProducts.FirstOrDefaultAsync(bp => bp.Id == id && bp.Basket.UserId == user.Id);
+            if (basketProduct == null) return NotFound();
 
-            basket = JsonConvert.DeserializeObject<List<BasketAddViewModel>>(Request.Cookies["basket"]);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == basketProduct.ProductId);
+            if (product == null) return NotFound();
 
-            var dbProduct=await _context.Products.FindAsync(id);
-            if (dbProduct == null) return NotFound();
-
-            var basketProduct = basket.Find(b => b.Id == dbProduct.Id);
-
-            if (basketProduct != null)
-            {
-                basket.Remove(basketProduct);
-            }
-
-            var serializedBasket = JsonConvert.SerializeObject(basket);
-            Response.Cookies.Append("basket", serializedBasket);
+            _context.BasketProducts.Remove(basketProduct);
+            await _context.SaveChangesAsync();
 
             return Ok();
-
         }
-        
+
     }
 }

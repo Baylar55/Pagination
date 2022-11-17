@@ -22,6 +22,52 @@ namespace Fiorello.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Fiorello.Models.Basket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("Fiorello.Models.BasketProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BasketProducts");
+                });
+
             modelBuilder.Entity("Fiorello.Models.Blog", b =>
                 {
                     b.Property<int>("Id")
@@ -178,6 +224,9 @@ namespace Fiorello.Migrations
 
                     b.Property<double>("Cost")
                         .HasColumnType("float");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -439,6 +488,36 @@ namespace Fiorello.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Fiorello.Models.Basket", b =>
+                {
+                    b.HasOne("Fiorello.Models.User", "User")
+                        .WithOne("Basket")
+                        .HasForeignKey("Fiorello.Models.Basket", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Fiorello.Models.BasketProduct", b =>
+                {
+                    b.HasOne("Fiorello.Models.Basket", "Basket")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Fiorello.Models.Product", "Product")
+                        .WithMany("BasketProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Fiorello.Models.HomeMainSliderPhoto", b =>
                 {
                     b.HasOne("Fiorello.Models.HomeMainSlider", "HomeMainSlider")
@@ -521,6 +600,11 @@ namespace Fiorello.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Fiorello.Models.Basket", b =>
+                {
+                    b.Navigation("BasketProducts");
+                });
+
             modelBuilder.Entity("Fiorello.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -533,7 +617,15 @@ namespace Fiorello.Migrations
 
             modelBuilder.Entity("Fiorello.Models.Product", b =>
                 {
+                    b.Navigation("BasketProducts");
+
                     b.Navigation("ProductPhotos");
+                });
+
+            modelBuilder.Entity("Fiorello.Models.User", b =>
+                {
+                    b.Navigation("Basket")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

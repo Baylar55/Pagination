@@ -6,6 +6,7 @@ using Fiorello.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using static Fiorello.Models.Product;
 
 namespace Fiorello.Areas.Admin.Controllers
 {
@@ -23,18 +24,72 @@ namespace Fiorello.Areas.Admin.Controllers
             _fileService = fileService;
         }
 
-        #region Product CRUD
 
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(ProductIndexViewModel model)
         {
-            var model = new ProductIndexViewModel
+            var products = FilterProducts(model);
+            model = new ProductIndexViewModel
             {
-                Products = await _appDbContext.Products
-                                            .ToListAsync()
+                Products = await products.Include(p => p.Category).ToListAsync(),
+                Categories = await _appDbContext.Categories.Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                })
+                .ToListAsync()
             };
             return View(model);
+
         }
 
+        #region Filter Methods
+
+        private IQueryable<Product> FilterProducts(ProductIndexViewModel model)
+        {
+            var products = FilterByName(model.Name);
+            products = FilterByCategory(products, model.CategoryId);
+            products = FilterByCost(products, model.MinCost, model.MaxCost);
+            products = FilterByQuantity(products, model.MinQuantity,model.MaxQuantity);
+            products = FilterByCreatedAt(products, model.CreatedAtStart,model.CreatedAtEnd);
+            products = FilterByStatus(products, model.StatusType);
+            return products;
+        }
+
+
+        private IQueryable<Product> FilterByName(string name)
+        {
+            return _appDbContext.Products.Where(p => !string.IsNullOrEmpty(name) ? p.Name.Contains(name) : true);
+        }
+
+        private IQueryable<Product> FilterByCategory(IQueryable<Product> products, int? categoryId)
+        {
+            return _appDbContext.Products.Where(p => categoryId != null ? p.CategoryId == categoryId : true);
+        }
+
+        private IQueryable<Product> FilterByCost(IQueryable<Product> product, double? minCost, double? maxCost)
+        {
+            return _appDbContext.Products.Where(p => (minCost != null ? p.Cost >= minCost : true) && (maxCost != null ? p.Cost <= maxCost : true));
+        }
+
+        private IQueryable<Product> FilterByQuantity(IQueryable<Product> product, int? minQuantity, int? maxQuantity)
+        {
+            return _appDbContext.Products.Where(p => (minQuantity != null ? p.Quantity >= minQuantity : true) && (maxQuantity != null ? p.Quantity <= maxQuantity : true));
+        }
+
+        private IQueryable<Product> FilterByCreatedAt(IQueryable<Product> product, DateTime? createdAtStart, DateTime? createdAtEnd)
+        {
+            return _appDbContext.Products.Where(p => (createdAtStart != null ? p.CreatedAt >= createdAtStart : true) && (createdAtEnd != null ? p.CreatedAt <=createdAtEnd : true));
+        }
+
+        private IQueryable<Product> FilterByStatus(IQueryable<Product> product, Status? statusType)
+        {
+            return _appDbContext.Products.Where(p => statusType != null ? p.StatusType==statusType : true);
+        }
+
+        #endregion
+
+        #region Product CRUD
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -154,98 +209,105 @@ namespace Fiorello.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int id, ProductUpdateViewModel model)
         {
-            model.Categories = await _appDbContext.Categories.Select(c => new SelectListItem
+            model.Categories = await _appDbContext.Categories
+               .Select(pt => new SelectListItem
+               {
+                   Text = pt.Name,
+                   Value = pt.Id.ToString()
+
+               }).ToListAsync();
+
+            var product = await _appDbContext.Products
+                         .Include(p => p.ProductPhotos)
+                         .FirstOrDefaultAsync(x => x.Id == id);
+
+            bool isExists = await _appDbContext.Products.AnyAsync(p => p.Name.ToLower().Trim() == model.Name.ToLower().Trim()
+            && model.Id != p.Id);
+
+            if (isExists)
             {
-                Text = c.Name,
-                Value = c.Id.ToString()
-            }).ToListAsync();
-
-            if (!ModelState.IsValid) return View(model);
-
-            var dbProduct = await _appDbContext.Products.Include(p => p.ProductPhotos).FirstOrDefaultAsync(p => p.Id == id);
-            if (dbProduct == null) return NotFound();
-
-            model.ProductPhotos = dbProduct.ProductPhotos.ToList();
-
-            if (await _appDbContext.Categories.FindAsync(model.CategoryId) == null)
-            {
-                ModelState.AddModelError("CategoryId", "This category isn't exist");
+                ModelState.AddModelError("Title", "This product already have");
+                return View(model);
             }
 
-            bool isExist = await _appDbContext.Products.AnyAsync(p => p.Name.ToLower().Trim() == model.Name.ToLower().Trim());
-            if (isExist)
+
+            var dbproduct = await _appDbContext.Products.FindAsync(id);
+            if (dbproduct == null) return NotFound();
+            if (model.Id != dbproduct.Id) return BadRequest();
+
+
+            bool hasError = false;
+            int maxSize = 1000;
+
+            if (model.Photos != null)
             {
-                ModelState.AddModelError("Name", "This name is already exist");
+                foreach (var photo in model.Photos)
+                {
+                    if (!_fileService.IsImage(photo))
+                    {
+                        ModelState.AddModelError("Photos", "File must be image");
+                        hasError = true;
+                    }
+                    else if (!_fileService.CheckSize(photo, maxSize))
+                    {
+                        ModelState.AddModelError("Photos", $"Photo size must be less {maxSize}kb");
+                        hasError = true;
+                    }
+
+
+
+                    int order = 1;
+                    var productPhoto = new ProductPhoto
+                    {
+                        Name = await _fileService.UploadAsync(photo, _webHostEnvironment.WebRootPath),
+                        Order = order,
+                        ProductId = product.Id
+                    };
+                    await _appDbContext.ProductPhotos.AddAsync(productPhoto);
+                    await _appDbContext.SaveChangesAsync();
+                    order++;
+
+                }
+                if (hasError)
+                {
+                    return View(model);
+                }
+
             }
 
-            var category = await _appDbContext.Categories.FindAsync(model.CategoryId);
-            if (category == null) return NotFound();
             if (model.Photo != null)
             {
                 if (!_fileService.IsImage(model.Photo))
                 {
-                    ModelState.AddModelError("Photo", $"Uploaded file should be in image format");
-                    return View(model);
+                    ModelState.AddModelError("Photos", "File must be image");
+                    hasError = true;
                 }
-                else if (!_fileService.CheckSize(model.Photo, 400))
+                else if (!_fileService.CheckSize(model.Photo, maxSize))
                 {
-                    ModelState.AddModelError("Photo", "Image's size sould be smaller than 400kb");
-                    return View(model);
+                    ModelState.AddModelError("Photos", $"Photo size must be less {maxSize}kb");
+                    hasError = true;
                 }
-
-            }
-
-            dbProduct.Cost = model.Cost;
-            dbProduct.Name = model.Name;
-            dbProduct.Weight = model.Weight;
-            dbProduct.Description = model.Description;
-            dbProduct.CategoryId = model.CategoryId;
-            dbProduct.Dimension = model.Dimension;
-            _fileService.Delete(_webHostEnvironment.WebRootPath, dbProduct.PhotoName);
-            dbProduct.PhotoName = await _fileService.UploadAsync(model.Photo, _webHostEnvironment.WebRootPath);
-            dbProduct.StatusType = model.StatusType;
-            dbProduct.Quantity = model.Quantity;
-
-            bool hasError = false;
-
-            if (model.Photos != null)
-            {
-                foreach (var photo in model.ProductPhotos)
-                {
-                    if (!_fileService.IsImage(model.Photo))
-                    {
-                        ModelState.AddModelError("Photo", $"{photo.Name} should be in image format");
-                        hasError = true;
-                    }
-                    else if (!_fileService.CheckSize(model.Photo, 400))
-                    {
-                        ModelState.AddModelError("Photo", $"{photo.Name}'s size sould be smaller than 400kb");
-                        hasError = true;
-                    }
-
-                }
-            }
-            if (hasError) return View(model);
-
-
-            int order = 1;
-            foreach (var photo in model.Photos)
-            {
-                foreach (var item in model.ProductPhotos)
-                {
-                    _fileService.Delete(_webHostEnvironment.WebRootPath, item.Name);
-                }
-                var productPhoto = new ProductPhoto
-                {
-                    ProductId = dbProduct.Id,
-                    Name = await _fileService.UploadAsync(photo, _webHostEnvironment.WebRootPath),
-                    Order = order,
-                };
-                await _appDbContext.ProductPhotos.AddAsync(productPhoto);
+                dbproduct.PhotoName = await _fileService.UploadAsync(model.Photo, _webHostEnvironment.WebRootPath);
                 await _appDbContext.SaveChangesAsync();
-                order++;
             }
+            if (hasError)
+            {
+                return View(model);
+            }
+
+            if (!ModelState.IsValid) return View(model);
+            dbproduct.Name = model.Name;
+            dbproduct.Description = model.Description;
+            dbproduct.StatusType = model.StatusType;
+            dbproduct.CategoryId = model.CategoryId;
+            dbproduct.Cost = model.Cost;
+            dbproduct.Quantity = model.Quantity;
+            dbproduct.Weight = model.Weight;
+
+            await _appDbContext.SaveChangesAsync();
+
             return RedirectToAction("index");
+
         }
 
         [HttpGet]
@@ -311,21 +373,21 @@ namespace Fiorello.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePhoto(int id, ProductPhotoUpdateViewModel model)
         {
-            if(!ModelState.IsValid) return View(model);
-            if(id!=model.Id) return BadRequest();
-            var dbProductPhoto= await _appDbContext.ProductPhotos.FindAsync(id);
-            if(dbProductPhoto == null) return NotFound();   
+            if (!ModelState.IsValid) return View(model);
+            if (id != model.Id) return BadRequest();
+            var dbProductPhoto = await _appDbContext.ProductPhotos.FindAsync(id);
+            if (dbProductPhoto == null) return NotFound();
             dbProductPhoto.Order = model.Order;
             await _appDbContext.SaveChangesAsync();
-            return RedirectToAction("update", "product", new {id=dbProductPhoto.ProductId});
+            return RedirectToAction("update", "product", new { id = dbProductPhoto.ProductId });
         }
 
         [HttpGet]
         public async Task<IActionResult> DeletePhoto(int id)
         {
-            var dbProductPhoto=await _appDbContext.ProductPhotos.FindAsync(id);
-            if(dbProductPhoto==null) return NotFound();
-            _fileService.Delete(_webHostEnvironment.WebRootPath,dbProductPhoto.Name);
+            var dbProductPhoto = await _appDbContext.ProductPhotos.FindAsync(id);
+            if (dbProductPhoto == null) return NotFound();
+            _fileService.Delete(_webHostEnvironment.WebRootPath, dbProductPhoto.Name);
             _appDbContext.ProductPhotos.Remove(dbProductPhoto);
             await _appDbContext.SaveChangesAsync();
             return RedirectToAction("update");

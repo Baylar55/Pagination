@@ -8,13 +8,13 @@
             data: {
                 id: id
             },
-            success: function (result) {
-                console.log(result);
+            success: function () {
+                console.log("ok");
             }
         })
     })
 
-    $(document).on('click', '#deleteButton', function () {
+    $(document).on('click', '#deleteBtn', function () {
         var id = $(this).data('id');
 
         $.ajax({
@@ -23,8 +23,8 @@
             data: {
                 id: id
             },
-            success: function (result) {
-                $(`.basketProduct[id=${id}]`).remove();
+            success: function () {
+                $(`.basket-product[id=${id}]`).remove();
             }
         })
     })

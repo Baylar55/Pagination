@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SmbB735scVuJnAvXjtCCm23iw8QYgSoq86X36N+hPmI=",
+  "Hash": "uiBWx1ZIEZ01TV9qRYQ7/wVyh6eGZFvOIEdSbza2Dp8=",
   "Source": "Fiorello",
   "BasePath": "_content/Fiorello",
   "Mode": "Default",
@@ -1715,23 +1715,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\img\\557785b0-e649-4b21-b928-aa84572f941e_shop-2-gallery-2-300x400.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\user\\Desktop\\Fiorello\\Fiorello\\wwwroot\\assets\\img\\5bc2ff78-0d60-4eab-b8d5-10e0298d0940_shop-2-img.jpg",
-      "SourceId": "Fiorello",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\Fiorello\\Fiorello\\wwwroot\\",
-      "BasePath": "_content/Fiorello",
-      "RelativePath": "assets/img/5bc2ff78-0d60-4eab-b8d5-10e0298d0940_shop-2-img.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\img\\5bc2ff78-0d60-4eab-b8d5-10e0298d0940_shop-2-img.jpg"
     },
     {
       "Identity": "C:\\Users\\user\\Desktop\\Fiorello\\Fiorello\\wwwroot\\assets\\img\\5f865d9c-9f0d-4419-bc57-741e28de6b72_shop-2-gallery-3-300x400.jpg",

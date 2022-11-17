@@ -1600,22 +1600,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\img\557785b0-e649-4b21-b928-aa84572f941e_shop-2-gallery-2-300x400.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\img\5bc2ff78-0d60-4eab-b8d5-10e0298d0940_shop-2-img.jpg))">
-      <SourceType>Package</SourceType>
-      <SourceId>Fiorello</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Fiorello</BasePath>
-      <RelativePath>assets/img/5bc2ff78-0d60-4eab-b8d5-10e0298d0940_shop-2-img.jpg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\img\5bc2ff78-0d60-4eab-b8d5-10e0298d0940_shop-2-img.jpg))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\assets\img\5f865d9c-9f0d-4419-bc57-741e28de6b72_shop-2-gallery-3-300x400.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Fiorello</SourceId>
